@@ -1,0 +1,11 @@
+# State contains every value Terraform has ever seen, including the ones marked
+# sensitive. It is not a source file and it is not safe to commit.
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+crash.log
+
+# Real variable values, including the API URL and any secrets.
+terraform.tfvars
+*.auto.tfvars

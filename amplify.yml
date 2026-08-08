@@ -1,0 +1,35 @@
+# Amplify Hosting build spec.
+#
+# This file lives in the repo rather than in Terraform on purpose: Amplify gives
+# an in-repo amplify.yml precedence over the app-level spec, so keeping it here
+# means the build can be corrected with a normal commit instead of a
+# `terraform apply`. Terraform owns the infrastructure; this owns the build.
+version: 1
+frontend:
+    phases:
+        preBuild:
+            commands:
+                # `npm ci` over `npm install`: the lockfile is the point of a
+                # reproducible build, and it fails loudly when the two disagree
+                # rather than quietly resolving something newer.
+                - npm ci
+        build:
+            commands:
+                # Amplify exposes environment variables to the *build*, but a
+                # Next.js SSR app on WEB_COMPUTE reads API_URL at *request* time,
+                # in a different process. Writing them into .env.production is
+                # the documented bridge between the two — without this, the
+                # deployed site builds cleanly and then throws "API_URL is not
+                # set" on the first verification link anyone taps.
+                - env | grep -E '^(API_URL|NEXT_PUBLIC_)' >> .env.production || true
+                - npm run build
+    artifacts:
+        # .next is the whole SSR bundle; Amplify reads the Next.js build output
+        # from here and provisions the compute role around it.
+        baseDirectory: .next
+        files:
+            - "**/*"
+    cache:
+        paths:
+            - node_modules/**/*
+            - .next/cache/**/*

@@ -1,0 +1,15 @@
+# Copy to terraform.tfvars and fill in. terraform.tfvars is gitignored.
+#
+# The GitHub token is deliberately NOT here — export it instead, so a stray
+# `git add -f` cannot leak it:
+#     export TF_VAR_github_access_token=ghp_xxxxxxxxxxxx
+
+# Public base URL of the MeowQuest API. Must be reachable from AWS.
+api_url = "https://api.example.com"
+
+# Optional. Leave commented to use the free amplifyapp.com URL.
+# custom_domain    = "meowquest.app"
+# subdomain_prefix = "verify"
+
+# aws_region  = "ap-east-1"
+# branch_name = "main"
