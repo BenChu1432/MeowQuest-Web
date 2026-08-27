@@ -4,12 +4,24 @@
 # `git add -f` cannot leak it:
 #     export TF_VAR_github_access_token=ghp_xxxxxxxxxxxx
 
-# Public base URL of the MeowQuest API. Must be reachable from AWS.
-api_url = "https://api.example.com"
+# Per-environment backend. The defaults in variables.tf already point DEV at the
+# local backend, UAT at the AWS Lambda endpoint and PROD at api.meowquest.app;
+# uncomment only what differs for your account.
+# environments = {
+#     uat = {
+#         branch_name = "uat"
+#         stage       = "BETA"
+#         api_url     = "https://sihm6r0gsc.execute-api.ap-southeast-1.amazonaws.com"
+#     }
+#     production = {
+#         branch_name = "main"
+#         stage       = "PRODUCTION"
+#         api_url     = "https://api.meowquest.app"
+#     }
+# }
 
 # Optional. Leave commented to use the free amplifyapp.com URL.
 # custom_domain    = "meowquest.app"
 # subdomain_prefix = "verify"
 
-# aws_region  = "ap-east-1"
-# branch_name = "main"
+# aws_region = "ap-east-1"

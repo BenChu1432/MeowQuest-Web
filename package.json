@@ -3,7 +3,9 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "dev": "next dev -p 3001",
+        "dev": "node scripts/start-env.mjs dev",
+        "dev:uat": "node scripts/start-env.mjs uat",
+        "dev:prod": "node scripts/start-env.mjs prod",
         "build": "next build",
         "start": "next start -p 3001",
         "typecheck": "tsc --noEmit"

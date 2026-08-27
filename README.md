@@ -32,26 +32,41 @@ perfectly and fails every verification with a 503.
 ## Local development
 
 ```bash
-cp .env.example .env      # then edit API_URL if the backend isn't on :3000
 npm install
-npm run dev               # http://localhost:3001
+
+npm run dev        # DEV  → http://localhost:3000 (your machine's backend)
+npm run dev:uat    # UAT  → https://sihm6r0gsc.execute-api.ap-southeast-1.amazonaws.com
+npm run dev:prod   # PROD → https://api.meowquest.app
 ```
 
-| Variable                 | Read by                    | Notes                                                        |
-| ------------------------ | -------------------------- | ------------------------------------------------------------ |
-| `API_URL`                | server, at request time    | Base URL of the MeowQuest API. No trailing slash needed.     |
-| `NEXT_PUBLIC_APP_SCHEME` | browser, baked in at build | Deep link back into the app. Must match `frontend/app.json`. |
+`npm run dev*` copies `env/<env>.env` → `.env.local` and starts Next.js on
+`http://localhost:3001`, so `API_URL` is always the one for the environment you
+asked for.
+
+| Variable                 | Read by                    | Notes                                                          |
+| ------------------------ | -------------------------- | -------------------------------------------------------------- |
+| `API_URL`                | server, at request time    | Base URL of the MeowQuest API. Chosen per environment — below. |
+| `NEXT_PUBLIC_APP_SCHEME` | browser, baked in at build | Deep link back into the app. Must match `frontend/app.json`.   |
+
+### Environments (DEV / UAT / PROD)
+
+| Environment | Backend (`API_URL`)                                           | How it runs           |
+| ----------- | ------------------------------------------------------------- | --------------------- |
+| DEV         | `http://localhost:3000`                                       | `npm run dev` (local) |
+| UAT         | `https://sihm6r0gsc.execute-api.ap-southeast-1.amazonaws.com` | Amplify `uat` branch  |
+| PROD        | `https://api.meowquest.app`                                   | Amplify `main` branch |
 
 ## Deploying
 
 Infrastructure is Terraform in [`infra/`](infra), hosting is AWS Amplify. One
-`apply` creates the app, connects this repo, and turns on builds from `main`.
+`apply` creates the app, connects this repo, and turns on a branch per deployed
+environment (`uat` and `main`).
 
 ```bash
 brew install terraform          # not installed by default
 
 cd infra
-cp terraform.tfvars.example terraform.tfvars   # set api_url
+cp terraform.tfvars.example terraform.tfvars   # override api_url if needed
 export TF_VAR_github_access_token=ghp_…        # classic PAT: repo + admin:repo_hook
 
 terraform init
@@ -67,7 +82,7 @@ terraform apply
 | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | `aws_amplify_app`                | `platform = "WEB_COMPUTE"` — this is SSR, not a static export. Deploying it as `WEB` builds fine and then 404s every route. |
 | `aws_iam_role` + policy          | Amplify requires a service role for SSR compute. Scoped to this app's log groups only.                                      |
-| `aws_amplify_branch`             | Tracks `main`, `framework = "Next.js - SSR"`, auto-build on push.                                                           |
+| `aws_amplify_branch`             | One per environment (`uat`, `main`), each with its own `API_URL`. Auto-build on push.                                     |
 | `aws_amplify_domain_association` | Only if `custom_domain` is set.                                                                                             |
 
 The build itself is [`amplify.yml`](amplify.yml), not Terraform: Amplify prefers
@@ -77,19 +92,20 @@ an in-repo build spec, so a broken build is fixed with a commit rather than an
 ### The two settings that will bite you
 
 **1. The backend must know this site's URL.** The verification link is composed by
-the _backend_, from its own `WEB_APP_URL`. Deploying this app does not change what
-the emails say. After the first apply:
+the _backend_, from its own `WEB_URL`. Deploying this app does not change what the
+emails say. After the first apply, set each environment's `WEB_URL` in
+`backend/env.json` to the matching URL from `terraform output branch_urls`:
 
 ```bash
-# backend/.env
-WEB_APP_URL=https://main.d1234abcd.amplifyapp.com
+# backend/env.json — uat and production blocks
+"WEB_URL": "https://uat.d1234abcd.amplifyapp.com"
 ```
 
 **2. The API must be publicly reachable.** Amplify's compute runs in AWS and
-cannot see your laptop. Until the backend is deployed somewhere with a public
-address, verification links will open the page and fail at the last step. A tunnel
-(`ngrok http 3000`) is enough to prove the flow end to end before committing to
-backend hosting.
+cannot see your laptop. Until each backend is deployed somewhere with a public
+address, verification links will open the page and fail at the last step. The UAT
+backend already deploys to Lambda; for local DEV, a tunnel (`ngrok http 3000`) is
+enough to prove the flow end to end before committing to backend hosting.
 
 ### Environment variables at runtime
 
@@ -98,6 +114,9 @@ Amplify hands environment variables to the _build_. A Next.js SSR app reads
 into `.env.production` during the build. Without that line the site builds green
 and throws `API_URL is not set` on the first real link — a failure that only
 appears in production, which is the worst place to discover it.
+
+`API_URL` (and its companion `APP_ENV`) are set per branch, so `uat` and `main`
+each forward their own backend into the runtime.
 
 ### Custom domain
 

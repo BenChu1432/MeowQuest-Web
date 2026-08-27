@@ -21,7 +21,11 @@ frontend:
                 # the documented bridge between the two — without this, the
                 # deployed site builds cleanly and then throws "API_URL is not
                 # set" on the first verification link anyone taps.
-                - env | grep -E '^(API_URL|NEXT_PUBLIC_)' >> .env.production || true
+                #
+                # API_URL and APP_ENV are set per branch (DEV / UAT / PROD) in
+                # the Amplify console / Terraform; NEXT_PUBLIC_* are baked into
+                # the page at build time.
+                - env | grep -E '^(APP_ENV|API_URL|NEXT_PUBLIC_)' >> .env.production || true
                 - npm run build
     artifacts:
         # .next is the whole SSR bundle; Amplify reads the Next.js build output

@@ -16,10 +16,50 @@ variable "repository_url" {
     default     = "https://github.com/BenChu1432/MeowQuest-Web"
 }
 
-variable "branch_name" {
-    description = "Branch Amplify tracks for the production deployment."
-    type        = string
-    default     = "main"
+variable "environments" {
+    description = <<-EOT
+        Deployment environments, keyed by name (development / uat / production).
+        Each maps an Amplify branch to the backend it should talk to.
+
+        Only uat and production deploy on Amplify; development runs locally via
+        `npm run dev` (web/.env), so its entry here documents the mapping rather
+        than being applied. The production entry's branch is the one the custom
+        domain and outputs point at.
+    EOT
+    type = map(object({
+        branch_name = string
+        stage       = string
+        api_url     = string
+        auto_build  = optional(bool, true)
+    }))
+    default = {
+        development = {
+            branch_name = "develop"
+            stage       = "DEVELOPMENT"
+            api_url     = "http://localhost:3000"
+            auto_build  = false
+        }
+        uat = {
+            branch_name = "uat"
+            stage       = "BETA"
+            api_url     = "https://sihm6r0gsc.execute-api.ap-southeast-1.amazonaws.com"
+            auto_build  = true
+        }
+        production = {
+            branch_name = "main"
+            stage       = "PRODUCTION"
+            api_url     = "https://api.meowquest.app"
+            auto_build  = true
+        }
+    }
+
+    validation {
+        condition = alltrue([
+            for env, cfg in var.environments :
+            contains(["PRODUCTION", "BETA", "DEVELOPMENT", "EXPERIMENTAL", "PULL_REQUEST"], cfg.stage)
+        ])
+        error_message = "Each environment's stage must be one of PRODUCTION, BETA, DEVELOPMENT, EXPERIMENTAL, PULL_REQUEST."
+    }
 }
 
 variable "github_access_token" {
@@ -35,11 +75,6 @@ variable "github_access_token" {
     EOT
     type        = string
     sensitive   = true
-}
-
-variable "api_url" {
-    description = "Public base URL of the MeowQuest API, e.g. https://api.meowquest.app. Read server-side by the /api/* proxy routes. A localhost value here deploys a site that renders and then fails every verification, because Amplify's compute cannot reach your laptop."
-    type        = string
 }
 
 variable "app_scheme" {

@@ -72,9 +72,10 @@ resource "aws_amplify_app" "web" {
     iam_service_role_arn = aws_iam_role.amplify.arn
 
     # Available to the build, and forwarded into .env.production by amplify.yml
-    # so the SSR runtime can read them too.
+    # so the SSR runtime can read them too. Only what is shared across
+    # environments lives here — API_URL and APP_ENV differ per environment and
+    # are set on each branch (aws_amplify_branch.env).
     environment_variables = {
-        API_URL                = var.api_url
         NEXT_PUBLIC_APP_SCHEME = var.app_scheme
 
         # Amplify's Next.js image loader is off by default on WEB_COMPUTE and
@@ -106,18 +107,29 @@ resource "aws_amplify_app" "web" {
 }
 
 # ---------------------------------------------------------------------------
-# Branch
+# Branches (DEV / UAT / PROD)
 # ---------------------------------------------------------------------------
 
-resource "aws_amplify_branch" "main" {
+# One branch per environment. The API_URL that selects the backend is set here,
+# not on the app, so `uat` talks to the UAT backend and `main` talks to
+# production. Branch-level environment variables override the app-level ones
+# with the same name.
+resource "aws_amplify_branch" "env" {
+    for_each = var.environments
+
     app_id      = aws_amplify_app.web.id
-    branch_name = var.branch_name
+    branch_name = each.value.branch_name
 
     framework = "Next.js - SSR"
-    stage     = "PRODUCTION"
+    stage     = each.value.stage
 
-    # Push to main, get a deploy. That is the whole point of the exercise.
-    enable_auto_build = true
+    # Push to the branch, get a deploy. That is the whole point of the exercise.
+    enable_auto_build = each.value.auto_build
+
+    environment_variables = {
+        API_URL = each.value.api_url
+        APP_ENV = each.key
+    }
 }
 
 # ---------------------------------------------------------------------------
@@ -138,7 +150,7 @@ resource "aws_amplify_domain_association" "web" {
     wait_for_verification = false
 
     sub_domain {
-        branch_name = aws_amplify_branch.main.branch_name
+        branch_name = aws_amplify_branch.env["production"].branch_name
         prefix      = var.subdomain_prefix
     }
 }
