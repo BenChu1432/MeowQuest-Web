@@ -52,16 +52,13 @@ export default function SupportPage() {
     return (
         <main className="card support">
             <p className="brand">MEOWQUEST</p>
-            <div className="emoji">🐱</div>
+            <img className="mascot" src="/mascot.svg" alt="Blu the cat" />
             <h1>MeowMeowQuest support</h1>
             <p className="lead">Need a hand with MeowMeowQuest? We&rsquo;re here to help.</p>
 
             <a className="button" href={`mailto:${SUPPORT_EMAIL}`}>
                 Email us
             </a>
-            <p className="note">
-                Or write to <span className="email">{SUPPORT_EMAIL}</span>. We reply within a day or two.
-            </p>
 
             <section>
                 <h2>Frequently asked questions</h2>

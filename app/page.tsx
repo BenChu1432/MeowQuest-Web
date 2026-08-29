@@ -9,7 +9,7 @@ export default function HomePage() {
     return (
         <main className="card">
             <p className="brand">MEOWQUEST</p>
-            <div className="emoji">🐱</div>
+            <img className="mascot" src="/mascot.svg" alt="Blu the cat" />
             <h1>Nothing to see here</h1>
             <p>This page is where the links in MeowQuest emails land. Open the link we sent you, or head back to the app.</p>
             <p className="note">

@@ -48,10 +48,11 @@ body {
     color: var(--brand);
 }
 
-.emoji {
-    font-size: 46px;
-    line-height: 1;
-    margin-bottom: 12px;
+.mascot {
+    display: block;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 12px;
 }
 
 h1 {

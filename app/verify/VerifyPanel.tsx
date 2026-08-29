@@ -86,7 +86,7 @@ export function VerifyPanel({ token }: { token: string | null }) {
     if (status === "done") {
         return (
             <>
-                <div className="emoji">🎉</div>
+                <img className="mascot" src="/mascot.svg" alt="Blu the cat" />
                 <h1>You&rsquo;re all set!</h1>
                 <p>Head back to MeowQuest and sign in — your adventure is waiting.</p>
                 {/* <a className="button" href={APP_SCHEME}>
@@ -102,7 +102,7 @@ export function VerifyPanel({ token }: { token: string | null }) {
     if (status === "resent") {
         return (
             <>
-                <div className="emoji">📬</div>
+                <img className="mascot" src="/mascot.svg" alt="Blu the cat" />
                 <h1>Check your inbox</h1>
                 <p>
                     If <span className="email">{email}</span> needs verifying, a new link is on its way. It is good for 24 hours.
@@ -115,7 +115,7 @@ export function VerifyPanel({ token }: { token: string | null }) {
     if (status === "failed") {
         return (
             <>
-                <div className="emoji">😿</div>
+                <img className="mascot" src="/mascot.svg" alt="Blu the cat" />
                 <h1>That link didn&rsquo;t work</h1>
                 <p className="error">{message}</p>
                 <p>Type your email below and we&rsquo;ll send a fresh one.</p>
@@ -143,7 +143,7 @@ export function VerifyPanel({ token }: { token: string | null }) {
 
     return (
         <>
-            <div className="emoji">✉️</div>
+            <img className="mascot" src="/mascot.svg" alt="Blu the cat" />
             <h1>Verify your email</h1>
             <p>One tap and your MeowQuest account is ready to go.</p>
             <button className="button" type="button" onClick={verify} disabled={busy}>
