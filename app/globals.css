@@ -84,6 +84,7 @@ p {
     color: #fff;
     font-size: 16px;
     font-weight: 800;
+    text-align: center;
     font-family: inherit;
     cursor: pointer;
     text-decoration: none;
@@ -128,4 +129,44 @@ p {
 .error {
     color: var(--danger);
     font-weight: 600;
+}
+
+/* Support page — the App Store "Support URL". The email-verification pages are
+   one centred card; this one reads more like a page, so it is wider and its
+   body text runs left-aligned while the intro stays centred. */
+.card.support {
+    max-width: 560px;
+    text-align: left;
+}
+
+.card.support .brand,
+.card.support .emoji,
+.card.support h1,
+.card.support .lead {
+    text-align: center;
+}
+
+.lead {
+    margin-bottom: 18px;
+}
+
+h2 {
+    margin: 28px 0 14px;
+    font-size: 18px;
+}
+
+h3 {
+    margin: 18px 0 6px;
+    font-size: 15px;
+    color: var(--ink);
+}
+
+.link {
+    color: var(--brand);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
 }

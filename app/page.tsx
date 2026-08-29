@@ -12,6 +12,9 @@ export default function HomePage() {
             <div className="emoji">🐱</div>
             <h1>Nothing to see here</h1>
             <p>This page is where the links in MeowQuest emails land. Open the link we sent you, or head back to the app.</p>
+            <p className="note">
+                <a className="link" href="/support">Support</a>
+            </p>
         </main>
     );
 }
