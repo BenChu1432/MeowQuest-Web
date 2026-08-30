@@ -171,3 +171,41 @@ h3 {
 .link:hover {
     text-decoration: underline;
 }
+
+/* Privacy policy — the long-form legal page. Reuses the support card's wider,
+   left-aligned layout, then adds the list and small-print styling an FAQ never
+   needed. */
+.card.legal {
+    max-width: 640px;
+    text-align: left;
+}
+
+.card.legal .brand,
+.card.legal .mascot,
+.card.legal h1,
+.card.legal .lead {
+    text-align: center;
+}
+
+.card.legal h2 {
+    margin-top: 30px;
+}
+
+.card.legal ul {
+    margin: 0 0 10px;
+    padding-left: 20px;
+}
+
+.card.legal li {
+    margin: 5px 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.effective-date {
+    margin: -4px 0 6px;
+    font-size: 13px;
+    color: #8296a8;
+    text-align: center;
+}

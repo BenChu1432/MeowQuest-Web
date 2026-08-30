@@ -74,6 +74,9 @@ export default function SupportPage() {
                 MeowMeowQuest is an English-learning game where you complete quests, keep your
                 streak, and level up with Blu the cat.
             </p>
+            <p className="note">
+                <a className="link" href="/privacy">Privacy Policy</a>
+            </p>
         </main>
     );
 }

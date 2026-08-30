@@ -11,9 +11,11 @@ export default function HomePage() {
             <p className="brand">MEOWQUEST</p>
             <img className="mascot" src="/mascot.svg" alt="Blu the cat" />
             <h1>Nothing to see here</h1>
-            <p>This page is where the links in MeowQuest emails land. Open the link we sent you, or head back to the app.</p>
+            <p>This page is where the links in MeowMeowQuest emails land. Open the link we sent you, or head back to the app.</p>
             <p className="note">
                 <a className="link" href="/support">Support</a>
+                {" · "}
+                <a className="link" href="/privacy">Privacy Policy</a>
             </p>
         </main>
     );
