@@ -20,10 +20,10 @@ export const metadata: Metadata = {
 };
 
 /**
- * Where support email actually lands. `support@meowquest.app` is a real, checked
- * mailbox, so the "Email us" button below reaches a human rather than a void.
+ * Where support email actually lands — a real, checked mailbox, so the
+ * "Email us" button below reaches a human rather than a void.
  */
-const SUPPORT_EMAIL = "support@meowquest.app";
+const SUPPORT_EMAIL = "lucchu1007@gmail.com";
 
 const FAQ = [
     {

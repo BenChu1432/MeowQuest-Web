@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 /** Where privacy questions actually land. Same checked mailbox as Support. */
-const SUPPORT_EMAIL = "support@meowquest.app";
+const SUPPORT_EMAIL = "lucchu1007@gmail.com";
 
 export default function PrivacyPage() {
     return (
