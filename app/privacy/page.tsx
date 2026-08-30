@@ -131,14 +131,14 @@ export default function PrivacyPage() {
             <section>
                 <h2>Your rights</h2>
                 <p>
-                    Depending on where you live — the GDPR in Europe, the PDPO in Hong Kong, COPPA in the United States, and similar laws — you may have the right to access, correct, or delete your information, to receive a copy of it, and to object to or restrict certain processing. Write to <a className="link" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> and we will help.
+                    MeowMeowQuest currently serves customers in Hong Kong, and Hong Kong's Personal Data (Privacy) Ordinance (PDPO) applies. Under it, you may have the right to access, correct, or delete your information, and to receive a copy of it. Write to <a className="link" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> and we will help.
                 </p>
             </section>
 
             <section>
                 <h2>Where your data lives</h2>
                 <p>
-                    Our servers are on Amazon Web Services in the Asia Pacific (Singapore) region. Some processing — sending email — happens with Google, which may process that data outside Singapore under the safeguards that service provides.
+                    We host on Amazon Web Services in Singapore, and your information is stored there. Sending email happens with Google, which may process that data outside Singapore under the safeguards that service provides.
                 </p>
             </section>
 
