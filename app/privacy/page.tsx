@@ -75,10 +75,6 @@ export default function PrivacyPage() {
                 <p>
                     When a teacher adds you to a class, we store the class itself, your membership, the assignments, and the progress the teacher can see for their own students. Community features — friends, friend streaks, brag posts, and likes — are stored only if you choose to use them.
                 </p>
-                <h3>Photos</h3>
-                <p>
-                    We store a photo only if you add one to your profile or a quest. We do not otherwise touch your photo library.
-                </p>
             </section>
 
             <section>
@@ -86,27 +82,17 @@ export default function PrivacyPage() {
                 <ul>
                     <li>To run the game: quests, streaks, levels, rewards, and the review of mistakes.</li>
                     <li>To let teachers assign work and see their own class's progress.</li>
-                    <li>To generate the AI voices used in listening quests.</li>
                     <li>To send account emails: verification links and password resets.</li>
                     <li>To keep accounts secure and to fix problems.</li>
                 </ul>
             </section>
 
             <section>
-                <h2>AI, speech, and audio</h2>
-                <p>
-                    Listening quests are voiced with AI text-to-speech. The line to be read aloud is sent to ElevenLabs — with Google Gemini as a fallback — to produce a natural voice clip, which we store on Amazon Web Services. When you tap a word for its Chinese meaning, that single word or phrase is looked up with an online translator (LibreTranslate, then MyMemory). Speaking quests use your device's own speech recognition rather than our servers. We do not use your information to train AI models.
-                </p>
-            </section>
-
-            <section>
                 <h2>Who we share information with</h2>
                 <p>We share information only with the services that run MeowMeowQuest, and only as much as each needs:</p>
                 <ul>
-                    <li>Amazon Web Services — hosting, the database, and audio storage, in the Asia Pacific (Singapore) region.</li>
-                    <li>ElevenLabs and Google Gemini — the AI text-to-speech services that voice listening quests.</li>
+                    <li>Amazon Web Services — hosting and the database, in the Asia Pacific (Singapore) region.</li>
                     <li>Google — the Gmail API that sends our emails.</li>
-                    <li>LibreTranslate and MyMemory — online translation lookups when you tap a word for its Chinese meaning.</li>
                     <li>Apple and Google — the app stores that distribute MeowMeowQuest; their own privacy policies apply to your download.</li>
                 </ul>
                 <p>We do not sell or rent personal information, and we do not share it with advertisers or data brokers.</p>
@@ -152,7 +138,7 @@ export default function PrivacyPage() {
             <section>
                 <h2>Where your data lives</h2>
                 <p>
-                    Our servers are on Amazon Web Services in the Asia Pacific (Singapore) region. Some processing — sending email, generating AI voices, and looking up translations — happens with Google, ElevenLabs, LibreTranslate, and MyMemory, which may process that data outside Singapore under the safeguards those services provide.
+                    Our servers are on Amazon Web Services in the Asia Pacific (Singapore) region. Some processing — sending email — happens with Google, which may process that data outside Singapore under the safeguards that service provides.
                 </p>
             </section>
 
