@@ -86,7 +86,7 @@ export default function PrivacyPage() {
                 <ul>
                     <li>To run the game: quests, streaks, levels, rewards, and the review of mistakes.</li>
                     <li>To let teachers assign work and see their own class's progress.</li>
-                    <li>To generate listening audio and question content with AI voices.</li>
+                    <li>To generate the AI voices used in listening quests.</li>
                     <li>To send account emails: verification links and password resets.</li>
                     <li>To keep accounts secure and to fix problems.</li>
                 </ul>
@@ -95,7 +95,7 @@ export default function PrivacyPage() {
             <section>
                 <h2>AI, speech, and audio</h2>
                 <p>
-                    Some quests are written or voiced with the help of Google Gemini. Quest text may be sent to Google to produce a natural voice clip, which we then store on Amazon Web Services. Speaking quests use your device's own speech recognition rather than our servers. We do not use your information to train AI models.
+                    Listening quests are voiced with AI text-to-speech. The line to be read aloud is sent to ElevenLabs — with Google Gemini as a fallback — to produce a natural voice clip, which we store on Amazon Web Services. When you tap a word for its Chinese meaning, that single word or phrase is looked up with an online translator (LibreTranslate, then MyMemory). Speaking quests use your device's own speech recognition rather than our servers. We do not use your information to train AI models.
                 </p>
             </section>
 
@@ -103,8 +103,10 @@ export default function PrivacyPage() {
                 <h2>Who we share information with</h2>
                 <p>We share information only with the services that run MeowMeowQuest, and only as much as each needs:</p>
                 <ul>
-                    <li>Amazon Web Services — hosting, the database, and audio storage, in the Asia Pacific (Hong Kong) region.</li>
-                    <li>Google — the Gmail API that sends our emails, and Gemini for AI voices and content.</li>
+                    <li>Amazon Web Services — hosting, the database, and audio storage, in the Asia Pacific (Singapore) region.</li>
+                    <li>ElevenLabs and Google Gemini — the AI text-to-speech services that voice listening quests.</li>
+                    <li>Google — the Gmail API that sends our emails.</li>
+                    <li>LibreTranslate and MyMemory — online translation lookups when you tap a word for its Chinese meaning.</li>
                     <li>Apple and Google — the app stores that distribute MeowMeowQuest; their own privacy policies apply to your download.</li>
                 </ul>
                 <p>We do not sell or rent personal information, and we do not share it with advertisers or data brokers.</p>
@@ -150,7 +152,7 @@ export default function PrivacyPage() {
             <section>
                 <h2>Where your data lives</h2>
                 <p>
-                    Our servers are on Amazon Web Services in the Asia Pacific (Hong Kong) region. Some processing — sending email and generating AI voices — happens with Google, which may process that data in the United States under the safeguards those services provide.
+                    Our servers are on Amazon Web Services in the Asia Pacific (Singapore) region. Some processing — sending email, generating AI voices, and looking up translations — happens with Google, ElevenLabs, LibreTranslate, and MyMemory, which may process that data outside Singapore under the safeguards those services provide.
                 </p>
             </section>
 
